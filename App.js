@@ -15,7 +15,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       bill: null,
-      tipPercentage: .15,
+      tipPercentage: 15,
       tipAmount: null,
       total: null,
     };
@@ -43,9 +43,9 @@ export default class App extends React.Component {
                 selectedValue={this.state.tipPercentage}
                 style={{ height: 50, width: 100 }}
                 onValueChange={(itemValue, itemIndex) => this.setState({ tipPercentage: itemValue })}>
-                <Picker.Item label="15%" value=".15" />
-                <Picker.Item label="18%" value=".18" />
-                <Picker.Item label="20%" value=".2" />
+                <Picker.Item label="15%" value="15" />
+                <Picker.Item label="18%" value="18" />
+                <Picker.Item label="20%" value="20" />
               </Picker>
           </View>
           <View>
@@ -53,7 +53,7 @@ export default class App extends React.Component {
             <View>
              
             </View>
-            <Text>Tip Percentage: {this.state.tipPercentage}</Text>
+            <Text>Tip Percentage: {this.state.tipPercentage}%</Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
