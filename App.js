@@ -7,8 +7,10 @@ import {
   TextInput,
   Keyboard,
   Picker,
+  Button,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -40,24 +42,29 @@ export default class App extends React.Component {
           <View>
             <Text>Select A Tip Pecentage</Text>
             <Picker
-                selectedValue={this.state.tipPercentage}
-                style={{ height: 50, width: 100 }}
-                onValueChange={(itemValue, itemIndex) => this.setState({ tipPercentage: itemValue })}>
-                <Picker.Item label="15%" value="15" />
-                <Picker.Item label="18%" value="18" />
-                <Picker.Item label="20%" value="20" />
-              </Picker>
+              selectedValue={this.state.tipPercentage}
+              style={{ height: 50, width: 100 }}
+              onValueChange={(itemValue, itemIndex) => this.setState({ tipPercentage: itemValue })}>
+              <Picker.Item label="15%" value="15" />
+              <Picker.Item label="18%" value="18" />
+              <Picker.Item label="20%" value="20" />
+            </Picker>
           </View>
           <View>
             <Text>Bill Amount: ${this.state.bill}</Text>
-            <View>
-             
-            </View>
             <Text>Tip Percentage: {this.state.tipPercentage}%</Text>
+            <Text>Tip Amaount: {this.state.tipAmount}</Text>
           </View>
+          <Button
+            onPress={this.calulateTip}
+            title="Calculate"
+         ></Button>
         </View>
       </TouchableWithoutFeedback>
     );
+  }
+  calulateTip = () => {
+    this.setState({ tipAmount: parseFloat(this.state.bill) * ((this.state.tipPercentage) / 100) })
   }
 }
 
