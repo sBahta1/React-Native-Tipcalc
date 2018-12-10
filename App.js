@@ -1,13 +1,39 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Component1 from './Components/Component1/Component1';
+import {
+  TouchableWithoutFeedback,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Keyboard
+} from 'react-native';
+
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bill: ''
+    };
+  }
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Hello World</Text>
-        <Component1 />
-      </View>
+      <TouchableWithoutFeedback
+        onPress={Keyboard.dismiss}
+        accessible={false}>
+        <View style={styles.container}
+          onPress={() => {
+            Keyboard.dismiss();
+          }}>
+          <Text>Hello World</Text>
+          <TextInput
+            keyboardType='numeric'
+            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            onChangeText={(bill) => this.setState({ bill })}
+            value={this.state.bill}
+            placeholder='Enter Amount'
+          />
+        </View >
+      </TouchableWithoutFeedback>
     );
   }
 }
