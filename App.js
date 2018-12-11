@@ -54,7 +54,7 @@ export default class App extends React.Component {
           <View style={styles.dashBox}>
             <Text>Bill Amount: ${this.state.bill}</Text>
             <Text>Tip Percentage: {this.state.tipPercentage}%</Text>
-            <Text>Tip Amaount: {this.state.tipAmount}</Text>
+            <Text>Tip Amaount: ${this.state.tipAmount}</Text>
             <Text>Total: $ {this.state.total}</Text>
           </View>
           <Button
@@ -67,7 +67,7 @@ export default class App extends React.Component {
   }
   calulateTip = () => {
     this.setState({
-      tipAmount: parseFloat(this.state.bill) * ((this.state.tipPercentage) / 100).toFixed(2)
+      tipAmount: parseFloat((this.state.bill) * ((this.state.tipPercentage) / 100)).toFixed(2)
     })
     this.calulateTotal()
   }
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
+   
   },
   headerBox: {
     flex: 1,
