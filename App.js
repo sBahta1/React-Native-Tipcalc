@@ -16,10 +16,10 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      bill: null,
+      bill: '0.00',
       tipPercentage: 15,
-      tipAmount: null,
-      total: null,
+      tipAmount: '0.00',
+      total: '0.00',
     };
   }
   render() {
@@ -36,7 +36,7 @@ export default class App extends React.Component {
               keyboardType='numeric'
               style={styles.billInput}
               onChangeText={(bill) => this.setState({ bill })}
-              value={this.state.bill}
+              //value={this.state.bill}
               placeholder='Enter Amount'
               returnKeyType='done'
             />
@@ -49,12 +49,19 @@ export default class App extends React.Component {
               onSlidingComplete={(value) => this.setState({ tipPercentage: value })}
             />
           </View>
-          <View style={styles.dashBox}>
-          
-            <Text style={styles.dashText}>Bill Amount: ${this.state.bill}</Text>
-            <Text style={styles.dashText}>Tip Percentage: {this.state.tipPercentage}%</Text>
-            <Text style={styles.dashText}>Tip Amount: ${this.state.tipAmount}</Text>
-            <Text style={styles.dashText}>Total: $ {this.state.total}</Text>
+          <View style={styles.dashContainer}>
+            <View style={styles.dashBoxA}>
+              <Text style={styles.dashText}>Bill Amount: </Text>
+              <Text style={styles.dashText}>Tip Percentage: </Text>
+              <Text style={styles.dashText}>Tip Amount: </Text>
+              <Text style={styles.dashText}>Total: </Text>
+            </View>
+            <View style={styles.dashBoxB}>
+              <Text style={styles.dashText}>${this.state.bill}</Text>
+              <Text style={styles.dashText}>{this.state.tipPercentage}%</Text>
+              <Text style={styles.dashText}>${this.state.tipAmount}</Text>
+              <Text style={styles.dashText}>$ {this.state.total}</Text>
+            </View>
           </View>
           <Button
             onPress={this.calulateTip}
@@ -117,20 +124,32 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
 
   },
-  dashBox: {
-    flexDirection: 'column',
-    justifyContent:'space-around',
-    width: '85%',
-    height:200,
+  dashContainer: {
+    flexDirection:'row',
+    height: 200,
     borderRadius: 5,
-    padding: 20,
     backgroundColor: '#fff',
     zIndex: 2,
     shadowOffset: { width: 2, height: 5, },
     shadowColor: 'black',
     shadowOpacity: 0.5,
+    width: '85%',
   },
-  dashText:{
-    fontSize:18,
+  dashBoxA: {
+    flex:1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems:'flex-start',
+    padding: 10,
+  },
+  dashBoxB:{
+    flex:1,
+    flexDirection:'column',
+    justifyContent:'space-around',
+    alignItems:'flex-end',
+    padding:10
+  },
+  dashText: {
+    fontSize: 18,
   }
 });
