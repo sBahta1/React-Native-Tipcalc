@@ -40,8 +40,6 @@ export default class App extends React.Component {
               placeholder='Enter Amount'
               returnKeyType='done'
             />
-          </View >
-          <View style={styles.sliderBox}>
             <Text>Select A Tip Pecentage</Text>
             <Slider
               minimumValue={1}
@@ -52,10 +50,11 @@ export default class App extends React.Component {
             />
           </View>
           <View style={styles.dashBox}>
-            <Text>Bill Amount: ${this.state.bill}</Text>
-            <Text>Tip Percentage: {this.state.tipPercentage}%</Text>
-            <Text>Tip Amaount: ${this.state.tipAmount}</Text>
-            <Text>Total: $ {this.state.total}</Text>
+          
+            <Text style={styles.dashText}>Bill Amount: ${this.state.bill}</Text>
+            <Text style={styles.dashText}>Tip Percentage: {this.state.tipPercentage}%</Text>
+            <Text style={styles.dashText}>Tip Amount: ${this.state.tipAmount}</Text>
+            <Text style={styles.dashText}>Total: $ {this.state.total}</Text>
           </View>
           <Button
             onPress={this.calulateTip}
@@ -72,48 +71,66 @@ export default class App extends React.Component {
     this.calulateTotal()
   }
   calulateTotal = () => {
-    this.setState({ total: ((1 + (this.state.tipPercentage / 100)) * this.state.bill).toFixed(2) }
-    )
+    this.setState({
+      total: ((1 + (this.state.tipPercentage / 100)) * this.state.bill).toFixed(2)
+    })
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#2C5C73',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     flexDirection: 'column',
-   
+
   },
   headerBox: {
-    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    borderColor: 'black',
-    borderWidth: 1,
+    // borderColor: 'black',
+    // borderWidth: 1,
+    width: '100%'
   },
   header: {
     fontSize: 30,
+    color: '#D3E0DF'
   },
   inputBox: {
-    borderColor: 'black',
-    borderWidth: 1,
-    flex: 1,
+    //borderColor: 'black',
+    //borderWidth: 1,
+    width: '85%',
+    justifyContent: 'space-around',
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#fff',
+    zIndex: 5,
+    shadowOffset: { height: 5, },
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
   },
   billInput: {
     height: 40,
     width: 100,
     borderColor: 'gray',
     borderBottomWidth: 1,
+
   },
-  sliderBox: {
-    borderColor: 'black',
-    borderWidth: 1,
-    flex: 1,
+  dashBox: {
+    flexDirection: 'column',
+    justifyContent:'space-around',
+    width: '85%',
+    height:200,
+    borderRadius: 5,
+    padding: 20,
+    backgroundColor: '#fff',
+    zIndex: 2,
+    shadowOffset: { width: 2, height: 5, },
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
   },
-  dashBox:{
-    borderColor: 'black',
-    borderWidth: 1,
-    flex: 1,
+  dashText:{
+    fontSize:18,
   }
 });
