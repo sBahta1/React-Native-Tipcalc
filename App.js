@@ -20,9 +20,11 @@ export default class App extends React.Component {
       tipPercentage: 15,
       tipAmount: '0.00',
       total: '0.00',
+      buttons: false
     };
   }
   render() {
+
     return (
       <TouchableWithoutFeedback
         onPress={Keyboard.dismiss}
@@ -36,18 +38,20 @@ export default class App extends React.Component {
               keyboardType='numeric'
               style={styles.billInput}
               onChangeText={(bill) => this.setState({ bill })}
-              //value={this.state.bill}
               placeholder='Enter Amount'
               returnKeyType='done'
+              value={this.state.bill}
             />
             <Text>Select A Tip Pecentage</Text>
-            <Slider
-              minimumValue={1}
-              maximumValue={100}
-              step={5}
-              value={15}
-              onSlidingComplete={(value) => this.setState({ tipPercentage: value })}
-            />
+            <View style={styles.sliderBox}>
+              <Slider
+                minimumValue={1}
+                maximumValue={100}
+                step={1}
+                value={15}
+                onValueChange={(value) => this.setState({ tipPercentage: value })}
+              />
+            </View>
           </View>
           <View style={styles.dashContainer}>
             <View style={styles.dashBoxA}>
@@ -63,17 +67,49 @@ export default class App extends React.Component {
               <Text style={styles.dashText}>$ {this.state.total}</Text>
             </View>
           </View>
+          {this._renderActionButtons()}
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
+  _renderActionButtons() {
+    if (this.state.buttons) {
+      return (
+        <View style={styles.buttonBox}>
+          <Button
+            onPress={this.clearState}
+            title="Clear"
+            color='red'
+          ></Button>
           <Button
             onPress={this.calulateTip}
             title="Calculate"
           ></Button>
         </View>
-      </TouchableWithoutFeedback>
-    );
+      );
+    } else {
+      return (
+        <Button
+          onPress={this.calulateTip}
+          title="Calculate"
+        ></Button>
+      )
+    }
+  }
+
+  clearState = () => {
+    this.setState({
+      bill: '0.00',
+      tipPercentage: 15,
+      tipAmount: '0.00',
+      total: '0.00',
+      buttons: false
+    })
   }
   calulateTip = () => {
     this.setState({
-      tipAmount: parseFloat((this.state.bill) * ((this.state.tipPercentage) / 100)).toFixed(2)
+      tipAmount: parseFloat((this.state.bill) * ((this.state.tipPercentage) / 100)).toFixed(2),
+      buttons: true
     })
     this.calulateTotal()
   }
@@ -87,7 +123,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2C5C73',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-around',
     flexDirection: 'column',
@@ -97,59 +133,73 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     // borderColor: 'black',
-    // borderWidth: 1,
-    width: '100%'
+    // borderBottomWidth: 1,
+    width: '100%',
+    shadowOffset: { height: 15, },
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+
   },
   header: {
     fontSize: 30,
     color: '#D3E0DF'
   },
   inputBox: {
-    //borderColor: 'black',
-    //borderWidth: 1,
     width: '85%',
-    justifyContent: 'space-around',
+    height: 150,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 10,
     borderRadius: 5,
     backgroundColor: '#fff',
     zIndex: 5,
-    shadowOffset: { height: 5, },
+    shadowOffset: { height: 6, },
+    shadowRadius: 8,
     shadowColor: 'black',
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.3,
   },
   billInput: {
     height: 40,
     width: 100,
     borderColor: 'gray',
     borderBottomWidth: 1,
-
+  },
+  sliderBox: {
+    width: '100%',
   },
   dashContainer: {
-    flexDirection:'row',
+    flexDirection: 'row',
     height: 200,
     borderRadius: 5,
     backgroundColor: '#fff',
     zIndex: 2,
-    shadowOffset: { width: 2, height: 5, },
+    shadowOffset: { height: 6, },
     shadowColor: 'black',
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
     width: '85%',
   },
   dashBoxA: {
-    flex:1,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignItems:'flex-start',
+    alignItems: 'flex-start',
     padding: 10,
   },
-  dashBoxB:{
-    flex:1,
-    flexDirection:'column',
-    justifyContent:'space-around',
-    alignItems:'flex-end',
-    padding:10
+  dashBoxB: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'flex-end',
+    padding: 10
   },
   dashText: {
     fontSize: 18,
+  },
+  buttonBox: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   }
 });
